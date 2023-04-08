@@ -1,16 +1,14 @@
 package denis.nesterov.demo.microservices.accounts.model
 
 import java.time.LocalDate
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "accounts")
 data class AccountEntity(
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_number")
     var accountNumber: Long,
 
