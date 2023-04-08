@@ -36,3 +36,8 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+// disable plain jar
+tasks.named<Jar>("jar") {
+	enabled = false
+}
