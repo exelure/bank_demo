@@ -1,12 +1,19 @@
 spring:
   application:
-    name: "config-server"
+    name: "config-service"
   profiles:
-    active: native # native for classpath configurations
+#    active: native # native for classpath/filesystem configurations
+    active: git # git for configurations from git repository
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/configs
+#        native.search-locations: classpath:/configs # classpath
+#        native.search-locations: file:///C://configs # filesystem
+        git:
+          uri: git@bank_demo_configs_host:exelure/bank_demo_configs.git
+          passphrase: 12345678 # don't forget to provide pass phrase to unlock your private cert
+          clone-on-start: true
+          default-label: main
+
 server:
   port: 8855
