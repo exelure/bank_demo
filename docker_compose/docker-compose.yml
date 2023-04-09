@@ -1,0 +1,36 @@
+version: "3.8"
+
+networks:
+  demobank-network:
+
+services:
+  configuration:
+    image: bank_demo/configuration:latest
+    ports:
+      - "8855:8855"
+    networks:
+      - demobank-network
+
+  accounts:
+    depends_on: ["configuration"]
+    image: bank_demo/accounts:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - demobank-network
+
+  cards:
+    depends_on: ["configuration"]
+    image: bank_demo/cards:latest
+    ports:
+      - "9000:9000"
+    networks:
+      - demobank-network
+
+  loans:
+    depends_on: ["configuration"]
+    image: bank_demo/loans:latest
+    ports:
+      - "8090:8090"
+    networks:
+      - demobank-network
