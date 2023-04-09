@@ -12,7 +12,8 @@ services:
       - demobank-network
 
   accounts:
-    depends_on: ["configuration"]
+    depends_on:
+      - configuration
     image: bank_demo/accounts:latest
     ports:
       - "8080:8080"
@@ -20,7 +21,8 @@ services:
       - demobank-network
 
   cards:
-    depends_on: ["configuration"]
+    depends_on:
+      - configuration
     image: bank_demo/cards:latest
     ports:
       - "9000:9000"
@@ -28,7 +30,8 @@ services:
       - demobank-network
 
   loans:
-    depends_on: ["configuration"]
+    depends_on:
+      - configuration
     image: bank_demo/loans:latest
     ports:
       - "8090:8090"
