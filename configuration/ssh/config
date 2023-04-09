@@ -1,0 +1,16 @@
+# This is just an example of ssh config file in location:  ~/.ssh/config
+# Make sure you have set up same configuration just like in example below
+
+# PS. don't forget to add public SSH key from bank_demo_configs.pub to your repo account
+
+# PPS. command used to generate certificate for bank_demo_configs is:
+# ssh-keygen -m PEM -t rsa -b 4096 -C "https://github.com/exelure/bank_demo_configs" -f ~/.ssh/bank_demo_configs
+# You can find more on https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_authentication
+
+
+
+Host bank_demo_configs_host # used in spring uri
+    HostName github.com
+    User your_user
+    IdentityFile ~/.ssh/bank_demo_configs
+
