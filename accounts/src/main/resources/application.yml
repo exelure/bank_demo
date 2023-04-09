@@ -1,4 +1,10 @@
 spring:
+  application:
+    name: accounts
+  profiles:
+    active: prod
+  config:
+    import: "optional:configserver:http://localhost:8855"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
