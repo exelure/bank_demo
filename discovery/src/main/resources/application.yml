@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: discovery
+  config:
+    import: "optional:configserver:http://localhost:8855"
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+server:
+  port: 8070
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
