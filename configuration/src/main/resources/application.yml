@@ -14,6 +14,9 @@ spring:
           passphrase: 12345678 # don't forget to provide pass phrase to unlock your private cert
           clone-on-start: true
           default-label: main
+          search-paths:
+            - "/defaults"
+            - "/env_{profile}/{application}"
 
 server:
   port: 8855
