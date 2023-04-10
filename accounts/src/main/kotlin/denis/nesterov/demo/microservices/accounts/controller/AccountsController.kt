@@ -9,6 +9,7 @@ import denis.nesterov.demo.microservices.accounts.repository.AccountsRepository
 import denis.nesterov.demo.microservices.accounts.service.client.CardsFeignClient
 import denis.nesterov.demo.microservices.accounts.service.client.LoansFeignClient
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter
 import io.github.resilience4j.retry.annotation.Retry
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -58,6 +59,16 @@ class AccountsController {
     private fun accountDetailsFallback(customerDto: CustomerDto, t: Throwable): CustomerDetails {
         val account = AccountDto.fromEntity(accountsRepository.findByCustomerId(customerDto.id))
         return CustomerDetails(account = account, loans = emptyList(), cards = emptyList())
+    }
+
+    @GetMapping("/account/test")
+    @RateLimiter(name = "accountTestRateLimiter", fallbackMethod = "accountTestFallback")
+    fun getAccountTest(@RequestBody customerDto: CustomerDto): String {
+        return "Hello, ${customerDto.name}, welcome to DemoBank!"
+    }
+
+    private fun accountTestFallback(@RequestBody customerDto: CustomerDto): String {
+        return "Hi, ${customerDto.name}, sorry, but you've made too many requests!"
     }
 
 }

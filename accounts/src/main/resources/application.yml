@@ -53,6 +53,15 @@ info:
     version: 1.0.0
 
 resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      accountTestRateLimiter:
+        timeoutDuration: 5000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1
   retry:
     configs:
       default:
