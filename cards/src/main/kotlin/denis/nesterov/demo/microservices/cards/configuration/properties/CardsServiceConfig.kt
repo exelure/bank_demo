@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties(prefix = "cards")
 @ConstructorBinding
 data class CardsServiceConfig(
-    val buildVersion: String,
-    val msg: String,
-    val activeBranches: List<String>,
-    val mailDetails: Map<String, String>,
+    val buildVersion: String?,
+    val msg: String?,
+    val activeBranches: List<String> = emptyList(),
+    val mailDetails: Map<String, String> = emptyMap(),
 )
