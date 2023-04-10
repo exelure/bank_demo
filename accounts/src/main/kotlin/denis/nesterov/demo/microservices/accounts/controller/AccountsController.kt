@@ -44,13 +44,18 @@ class AccountsController {
     )
 
     @PostMapping("/account/details")
-    @CircuitBreaker(name = "accountDetailsCircuit")
+    @CircuitBreaker(name = "accountDetailsCircuit", fallbackMethod = "accountDetailsFallback")
     fun getAccountDetails(@RequestBody customerDto: CustomerDto): CustomerDetails {
         val account = AccountDto.fromEntity(accountsRepository.findByCustomerId(customerDto.id))
         val loans = loansClient.getLoansDetails(customerDto)
         val cards = cardsClient.getCardsDetails(customerDto)
 
         return CustomerDetails(account = account, loans = loans, cards = cards)
+    }
+
+    private fun accountDetailsFallback(customerDto: CustomerDto, t: Throwable): CustomerDetails {
+        val account = AccountDto.fromEntity(accountsRepository.findByCustomerId(customerDto.id))
+        return CustomerDetails(account = account, loans = emptyList(), cards = emptyList())
     }
 
 }
