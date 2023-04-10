@@ -11,10 +11,29 @@ services:
     networks:
       - demobank-network
 
-  accounts:
+  discovery:
+    image: bank_demo/discovery:latest
     depends_on:
       - configuration
+    ports:
+      - "8070:8070"
+    networks:
+      - demobank-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+
+  accounts:
     image: bank_demo/accounts:latest
+    depends_on:
+      - configuration
+      - discovery
     ports:
       - "8080:8080"
     networks:
@@ -28,11 +47,13 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
 
   cards:
+    image: bank_demo/cards:latest
     depends_on:
       - configuration
-    image: bank_demo/cards:latest
+      - discovery
     ports:
       - "9000:9000"
     networks:
@@ -46,11 +67,13 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
 
   loans:
+    image: bank_demo/loans:latest
     depends_on:
       - configuration
-    image: bank_demo/loans:latest
+      - discovery
     ports:
       - "8090:8090"
     networks:
@@ -64,4 +87,5 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
 
