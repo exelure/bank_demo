@@ -53,6 +53,14 @@ info:
     version: 1.0.0
 
 resilience4j:
+  retry:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      accountDetailsRetry:
+        maxRetryAttempts: 3
+        waitDuration: 2000
   circuitbreaker:
     configs:
       default:
