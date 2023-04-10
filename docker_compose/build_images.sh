@@ -1,4 +1,6 @@
 
+cd ../
+
 cd configuration/docker
 ./build_image.sh
 cd ../..
