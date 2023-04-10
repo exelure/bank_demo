@@ -8,6 +8,7 @@ import denis.nesterov.demo.microservices.accounts.model.Properties
 import denis.nesterov.demo.microservices.accounts.repository.AccountsRepository
 import denis.nesterov.demo.microservices.accounts.service.client.CardsFeignClient
 import denis.nesterov.demo.microservices.accounts.service.client.LoansFeignClient
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -43,6 +44,7 @@ class AccountsController {
     )
 
     @PostMapping("/account/details")
+    @CircuitBreaker(name = "accountDetailsCircuit")
     fun getAccountDetails(@RequestBody customerDto: CustomerDto): CustomerDetails {
         val account = AccountDto.fromEntity(accountsRepository.findByCustomerId(customerDto.id))
         val loans = loansClient.getLoansDetails(customerDto)

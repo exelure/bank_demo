@@ -51,3 +51,15 @@ info:
     name: Accounts microservice
     description: DemoBank Accounts app
     version: 1.0.0
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      accountDetailsCircuit:
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        withDurationInOpenState: 30000
+        permittedNumberOfCallsInHalfOpenState: 2
