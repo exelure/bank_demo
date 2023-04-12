@@ -7,7 +7,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: true # auto-detection and building routes via services names
           lowerCaseServiceId: true
 
 eureka:
