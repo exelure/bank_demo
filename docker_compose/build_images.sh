@@ -9,6 +9,10 @@ cd discovery/docker
 ./build_image.sh
 cd ../..
 
+cd gateway/docker
+./build_image.sh
+cd ../..
+
 cd accounts/docker
 ./build_image.sh
 cd ../..

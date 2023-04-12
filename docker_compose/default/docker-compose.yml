@@ -29,6 +29,26 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
 
+  gateway:
+    image: bank_demo/gateway:latest
+    depends_on:
+      - configuration
+      - discovery
+    ports:
+      - "6060:6060"
+    networks:
+      - demobank-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
+
   accounts:
     image: bank_demo/accounts:latest
     depends_on:
