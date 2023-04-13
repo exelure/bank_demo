@@ -1,16 +1,14 @@
 package denis.nesterov.demo.microservices.cards.controller
 
 import denis.nesterov.demo.microservices.cards.configuration.properties.CardsServiceConfig
+import denis.nesterov.demo.microservices.cards.configuration.properties.HeaderNames
 import denis.nesterov.demo.microservices.cards.model.CardDto
 import denis.nesterov.demo.microservices.cards.model.CustomerDto
 import denis.nesterov.demo.microservices.cards.model.Properties
 import denis.nesterov.demo.microservices.cards.repository.CardsRepository
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class CardsController {
@@ -22,7 +20,10 @@ class CardsController {
     private lateinit var config: CardsServiceConfig
 
     @PostMapping("/cards")
-    fun cardsDetails(@RequestBody customerDto: CustomerDto): List<CardDto> {
+    fun cardsDetails(
+        @RequestHeader(HeaderNames.CORR_ID) correlationId: String,
+        @RequestBody customerDto: CustomerDto,
+    ): List<CardDto> {
         return cardsRepository.findByCustomerId(customerDto.id)
             .map { CardDto.fromEntity(it) }
     }
