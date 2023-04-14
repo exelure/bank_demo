@@ -1,7 +1,7 @@
 package denis.nesterov.demo.microservices.loans.model
 
 import java.time.LocalDate
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "loans")

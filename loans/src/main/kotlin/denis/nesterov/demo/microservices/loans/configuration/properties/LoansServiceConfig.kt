@@ -1,11 +1,10 @@
 package denis.nesterov.demo.microservices.loans.configuration.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
+import org.springframework.boot.context.properties.bind.ConstructorBinding
 
 @ConfigurationProperties(prefix = "loans")
-@ConstructorBinding
-data class LoansServiceConfig(
+data class LoansServiceConfig @ConstructorBinding constructor(
     val buildVersion: String?,
     val msg: String?,
     val activeBranches: List<String> = emptyList(),
