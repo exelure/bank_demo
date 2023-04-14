@@ -1,5 +1,5 @@
 # base image
-FROM openjdk:11-slim as build
+FROM openjdk:17-jdk-slim as build
 
 ARG SSH_CONFIGS_KEY
 ARG SSH_KNOWN_HOSTS

@@ -1,6 +1,6 @@
 
 # base image
-FROM openjdk:11-slim as build
+FROM openjdk:17-jdk-slim as build
 
 # author metadata
 MAINTAINER https://github.com/exelure
