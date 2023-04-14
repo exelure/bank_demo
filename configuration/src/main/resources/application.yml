@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "config-service"
+    name: configuration
   profiles:
 #    active: native # native for classpath/filesystem configurations
     active: git # git for configurations from git repository
