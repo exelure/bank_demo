@@ -23,23 +23,25 @@ server:
   port: 6060
 
 management:
-  info:
-    env:
-      enabled: true
-  endpoint:
-    shutdown:
-      enabled: false
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+  info.env.enabled: true
+  endpoint.shutdown.enabled: false
+  endpoints.web.exposure.include: '*'
 
-endpoints:
-  shutdown:
-    enabled: false
+  tracing:
+    enabled: true
+    sampling.probability: 1.0
+  metrics.distribution.percentiles-histogram.http.server.requests: true
+  zipkin.tracing.endpoint: http://localhost:9411/api/v2/spans
+
+endpoints.shutdown.enabled: false
 
 info:
   app:
     name: Gateway microservice
     description: DemoBank Gateway app
     version: 1.0.0
+
+logging:
+  pattern.level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    denis.nesterov.demo.microservices.gateway: DEBUG
