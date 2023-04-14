@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class CardsController {
 
+    private val log = LoggerFactory.getLogger(CardsController::class.java)
+
     @Autowired
     private lateinit var cardsRepository: CardsRepository
 
@@ -24,8 +26,13 @@ class CardsController {
         @RequestHeader(HeaderNames.CORR_ID) correlationId: String,
         @RequestBody customerDto: CustomerDto,
     ): List<CardDto> {
-        return cardsRepository.findByCustomerId(customerDto.id)
+        log.info("Method cardsDetails started")
+
+        val result = cardsRepository.findByCustomerId(customerDto.id)
             .map { CardDto.fromEntity(it) }
+
+        log.info("Method cardsDetails ended")
+        return result
     }
 
     @GetMapping("/cards/properties")
