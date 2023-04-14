@@ -4,16 +4,34 @@ networks:
   demobank-network:
 
 services:
+  logservice:
+    image: openzipkin/zipkin:2.24
+    ports:
+      - "9411:9411"
+    networks:
+      - demobank-network
+
   configuration:
     image: bank_demo/configuration:latest
+    depends_on:
+      - logservice
     ports:
       - "8855:8855"
     networks:
       - demobank-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 1s
+        max_attempts: 3
+        window: 30s
+    environment:
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
 
   discovery:
     image: bank_demo/discovery:latest
     depends_on:
+      - logservice
       - configuration
     ports:
       - "8070:8070"
@@ -28,10 +46,12 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
 
   accounts:
     image: bank_demo/accounts:latest
     depends_on:
+      - logservice
       - configuration
       - discovery
     ports:
@@ -48,10 +68,12 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
 
   cards:
     image: bank_demo/cards:latest
     depends_on:
+      - logservice
       - configuration
       - discovery
     ports:
@@ -68,10 +90,12 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
 
   loans:
     image: bank_demo/loans:latest
     depends_on:
+      - logservice
       - configuration
       - discovery
     ports:
@@ -88,10 +112,12 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
 
   gateway:
     image: bank_demo/gateway:latest
     depends_on:
+      - logservice
       - configuration
       - discovery
       - accounts
@@ -111,3 +137,4 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
