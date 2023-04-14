@@ -6,6 +6,7 @@ import denis.nesterov.demo.microservices.cards.model.CardDto
 import denis.nesterov.demo.microservices.cards.model.CustomerDto
 import denis.nesterov.demo.microservices.cards.model.Properties
 import denis.nesterov.demo.microservices.cards.repository.CardsRepository
+import org.slf4j.LoggerFactory
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -23,7 +24,7 @@ class CardsController {
 
     @PostMapping("/cards")
     fun cardsDetails(
-        @RequestHeader(HeaderNames.CORR_ID) correlationId: String,
+        @RequestHeader(HeaderNames.CORR_ID) correlationId: String?,
         @RequestBody customerDto: CustomerDto,
     ): List<CardDto> {
         log.info("Method cardsDetails started")
