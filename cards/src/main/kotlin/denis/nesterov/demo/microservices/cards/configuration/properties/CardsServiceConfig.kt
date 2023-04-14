@@ -1,11 +1,10 @@
 package denis.nesterov.demo.microservices.cards.configuration.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
+import org.springframework.boot.context.properties.bind.ConstructorBinding
 
 @ConfigurationProperties(prefix = "cards")
-@ConstructorBinding
-data class CardsServiceConfig(
+data class CardsServiceConfig @ConstructorBinding constructor(
     val buildVersion: String?,
     val msg: String?,
     val activeBranches: List<String> = emptyList(),
