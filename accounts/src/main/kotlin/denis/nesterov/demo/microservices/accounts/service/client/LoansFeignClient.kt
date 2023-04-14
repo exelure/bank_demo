@@ -15,7 +15,7 @@ interface LoansFeignClient {
 
     @RequestMapping(method = [RequestMethod.POST], value = ["/loans"], consumes = ["application/json"])
     fun getLoansDetails(
-        @RequestHeader(HeaderNames.CORR_ID) correlationId: String,
+        @RequestHeader(HeaderNames.CORR_ID) correlationId: String?,
         @RequestBody customerDto: CustomerDto,
     ): List<LoanDto>
 }

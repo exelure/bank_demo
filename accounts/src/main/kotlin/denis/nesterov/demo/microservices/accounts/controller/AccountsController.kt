@@ -54,14 +54,19 @@ class AccountsController {
     @CircuitBreaker(name = "accountDetailsCircuit", fallbackMethod = "accountDetailsFallback")
     @Retry(name = "accountDetailsRetry", fallbackMethod = "accountDetailsFallback")
     fun getAccountDetails(
-        @RequestHeader(HeaderNames.CORR_ID) correlationId: String,
+        @RequestHeader(HeaderNames.CORR_ID) correlationId: String?,
         @RequestBody customerDto: CustomerDto,
     ): CustomerDetails {
+        log.info("Method accountDetails started")
+
         val account = AccountDto.fromEntity(accountsRepository.findByCustomerId(customerDto.id))
         val loans = loansClient.getLoansDetails(correlationId, customerDto)
         val cards = cardsClient.getCardsDetails(correlationId, customerDto)
 
-        return CustomerDetails(account = account, loans = loans, cards = cards)
+        val result = CustomerDetails(account = account, loans = loans, cards = cards)
+
+        log.info("Method accountDetails ended")
+        return result
     }
 
     private fun accountDetailsFallback(correlationId: String, customerDto: CustomerDto, t: Throwable): CustomerDetails {

@@ -15,7 +15,7 @@ interface CardsFeignClient {
 
     @RequestMapping(method = [RequestMethod.POST], value = ["/cards"], consumes = ["application/json"])
     fun getCardsDetails(
-        @RequestHeader(HeaderNames.CORR_ID) correlationId: String,
+        @RequestHeader(HeaderNames.CORR_ID) correlationId: String?,
         @RequestBody customerDto: CustomerDto,
     ): List<CardDto>
 }
