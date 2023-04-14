@@ -13,15 +13,25 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
+	maven("https://repo.spring.io/snapshot")
 }
 
 extra["springCloudVersion"] = "2022.0.2"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.cloud:spring-cloud-config-server")
+
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	// Micrometer Tracing
+	implementation(platform("io.micrometer:micrometer-tracing-bom:1.0.4"))
+	implementation("io.micrometer:micrometer-tracing")
+	implementation("io.micrometer:micrometer-tracing-bridge-otel")
+	implementation("io.opentelemetry:opentelemetry-exporter-zipkin")
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 }
 
 dependencyManagement {
