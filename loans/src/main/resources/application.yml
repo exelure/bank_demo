@@ -15,8 +15,7 @@ spring:
     hibernate:
       ddl-auto: validate
   h2:
-    console:
-      enabled: true
+    console.enabled: true
 
 eureka:
   instance:
@@ -31,23 +30,25 @@ server:
   port: 8090
 
 management:
-  info:
-    env:
-      enabled: true
-  endpoint:
-    shutdown:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+  info.env.enabled: true
+  endpoint.shutdown.enabled: true
+  endpoints.web.exposure.include: '*'
 
-endpoints:
-  shutdown:
+  tracing:
     enabled: true
+    sampling.probability: 1.0
+  metrics.distribution.percentiles-histogram.http.server.requests: true
+  zipkin.tracing.endpoint: http://localhost:9411/api/v2/spans
+
+endpoints.shutdown.enabled: true
 
 info:
   app:
     name: Loans microservice
     description: DemoBank Loans app
     version: 1.0.0
+
+logging:
+  pattern.level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    denis.nesterov.demo.microservices.loans: DEBUG
