@@ -13,6 +13,18 @@ services:
     networks:
       - demobank-network
 
+  grafana:
+    image: grafana/grafana:9.4.7
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    networks:
+      - demobank-network
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: pass
+
   logservice:
     image: openzipkin/zipkin:2.24
     ports:
