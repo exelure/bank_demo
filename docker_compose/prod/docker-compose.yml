@@ -4,6 +4,15 @@ networks:
   demobank-network:
 
 services:
+  prometheus:
+    image: prom/prometheus:v2.43.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - demobank-network
+
   logservice:
     image: openzipkin/zipkin:2.24
     ports:
