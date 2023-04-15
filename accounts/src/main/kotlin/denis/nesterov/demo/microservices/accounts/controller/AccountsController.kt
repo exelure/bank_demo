@@ -12,6 +12,7 @@ import denis.nesterov.demo.microservices.accounts.service.client.LoansFeignClien
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter
 import io.github.resilience4j.retry.annotation.Retry
+import io.micrometer.core.annotation.Timed
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -38,6 +39,7 @@ class AccountsController {
     private lateinit var loansClient: LoansFeignClient
 
     @PostMapping("/account")
+    @Timed(value = "accountDetails.time", description = "Time taken to provide account details")
     fun accountDetails(@RequestBody customerDto: CustomerDto): AccountDto {
         return AccountDto.fromEntity(accountsRepository.findByCustomerId(customerDto.id))
     }
