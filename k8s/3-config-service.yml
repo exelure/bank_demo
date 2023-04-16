@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-service-deployment
+  labels:
+    app: config-service-label
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-service-label
+  template:
+    metadata:
+      labels:
+        app: config-service-label
+    spec:
+      containers:
+        - name: config-service-container
+          image: bank_demo/configuration:latest
+          ports:
+            - containerPort: 8855
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: SPRING_PROFILES_ACTIVE
+            - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-service
+spec:
+  selector:
+    app: config-service-label
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8855
+      targetPort: 8855

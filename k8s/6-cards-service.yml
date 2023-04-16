@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cards-service-deployment
+  labels:
+    app: cards-service-label
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cards-service-label
+  template:
+    metadata:
+      labels:
+        app: cards-service-label
+    spec:
+      containers:
+        - name: cards-service-container
+          image: bank_demo/cards:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SPRING_CONFIG_IMPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: SPRING_CONFIG_IMPORT
+            - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cards-service
+spec:
+  selector:
+    app: cards-service-label
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
