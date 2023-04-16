@@ -4,6 +4,6 @@ metadata:
   name: config-map
 data:
   SPRING_PROFILES_ACTIVE: prod
-  SPRING_CONFIG_IMPORT: configserver:http://config-service:8071/
+  SPRING_CONFIG_IMPORT: configserver:http://config-service:8855/
   MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://log-service:9411/api/v2/spans
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8070/eureka/
