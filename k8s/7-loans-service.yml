@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: loans-service-container
-          image: bank_demo/loans:latest
+          image: asia.gcr.io/bank-demo-383910/bank_demo/loans:latest
           ports:
             - containerPort: 8090
           env:

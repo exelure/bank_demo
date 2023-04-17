@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: accounts-service-container
-          image: bank_demo/accounts:latest
+          image: asia.gcr.io/bank-demo-383910/bank_demo/accounts:latest
           ports:
             - containerPort: 8080
           env:

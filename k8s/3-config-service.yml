@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: config-service-container
-          image: bank_demo/configuration:latest
+          image: asia.gcr.io/bank-demo-383910/bank_demo/configuration:latest
           ports:
             - containerPort: 8855
           env:

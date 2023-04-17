@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cards-service-container
-          image: bank_demo/cards:latest
+          image: asia.gcr.io/bank-demo-383910/bank_demo/cards:latest
           ports:
             - containerPort: 9000
           env:
