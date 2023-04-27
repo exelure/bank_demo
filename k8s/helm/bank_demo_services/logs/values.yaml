@@ -1,0 +1,21 @@
+
+deploymentName: logs-service-deployment
+deploymentLabel: logs-service
+
+replicaCount: 1
+
+image:
+  repository: openzipkin/zipkin
+  tag: 2.24
+
+containerPort: 9411
+
+service:
+  type: LoadBalancer
+  port: 9411
+  targetPort: 9411
+
+profile_enabled: false
+config_enabled: false
+zipkin_enabled: false
+eureka_enabled: false
