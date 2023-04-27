@@ -1,0 +1,21 @@
+
+deploymentName: config-service-deployment
+deploymentLabel: config-service
+
+replicaCount: 1
+
+image:
+  repository: asia.gcr.io/bank-demo-383910/bank_demo/configuration
+  tag: latest
+
+containerPort: 8855
+
+service:
+  type: LoadBalancer
+  port: 8855
+  targetPort: 8855
+
+profile_enabled: true
+config_enabled: false
+zipkin_enabled: true
+eureka_enabled: false
