@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service-deployment
+  labels:
+    app: gateway-service-label
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-service-label
+  template:
+    metadata:
+      labels:
+        app: gateway-service-label
+    spec:
+      containers:
+        - name: gateway-service-container
+          image: asia.gcr.io/bank-demo-383910/bank_demo/gateway:latest
+          ports:
+            - containerPort: 6060
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SPRING_CONFIG_IMPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: SPRING_CONFIG_IMPORT
+            - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+spec:
+  selector:
+    app: gateway-service-label
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 6060
+      targetPort: 6060
