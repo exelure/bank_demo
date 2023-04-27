@@ -1,6 +1,6 @@
 
 global:
-  configMapName: config-map
+  configMapName: config-map-prod
   activeProfile: prod
   configServerURL: configserver:http://config-service:8855/
   zipkinBaseURL: http://log-service:9411/api/v2/spans
