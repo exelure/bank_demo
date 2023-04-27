@@ -1,0 +1,21 @@
+
+deploymentName: loans-service-deployment
+deploymentLabel: loans-service
+
+replicaCount: 1
+
+image:
+  repository: asia.gcr.io/bank-demo-383910/bank_demo/loans
+  tag: latest
+
+containerPort: 8090
+
+service:
+  type: LoadBalancer
+  port: 8090
+  targetPort: 8090
+
+profile_enabled: true
+config_enabled: true
+zipkin_enabled: true
+eureka_enabled: true
