@@ -15,6 +15,15 @@ service:
   port: 8080
   targetPort: 8080
 
+autoscaling:
+  hpa:
+    enabled: true
+    name: accounts-service-hpa
+    deploymentName: accounts-service-deployment
+    minReplicas: 1
+    maxReplicas: 2
+    cpuUtilizationPercentage: 50
+
 profile_enabled: true
 config_enabled: true
 zipkin_enabled: true

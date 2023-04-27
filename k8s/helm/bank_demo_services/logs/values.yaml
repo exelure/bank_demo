@@ -15,6 +15,10 @@ service:
   port: 9411
   targetPort: 9411
 
+autoscaling:
+  hpa:
+    enabled: false
+
 profile_enabled: false
 config_enabled: false
 zipkin_enabled: false
