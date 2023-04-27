@@ -1,3 +1,4 @@
+{{- if .Values.autoscaling.enabled }}
 {{- define "common.hpa" -}}
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
@@ -26,3 +27,4 @@ spec:
         targetAverageUtilization: {{ .Values.autoscaling.memoryUtilizationPercentage }}
     {{- end }}
 {{- end -}}
+{{- end }}
