@@ -1,0 +1,21 @@
+
+deploymentName: gateway-service-deployment
+deploymentLabel: gateway-service
+
+replicaCount: 1
+
+image:
+  repository: asia.gcr.io/bank-demo-383910/bank_demo/gateway
+  tag: latest
+
+containerPort: 6060
+
+service:
+  type: LoadBalancer
+  port: 6060
+  targetPort: 6060
+
+profile_enabled: true
+config_enabled: true
+zipkin_enabled: true
+eureka_enabled: true
