@@ -1,0 +1,21 @@
+
+deploymentName: cards-service-deployment
+deploymentLabel: cards-service
+
+replicaCount: 1
+
+image:
+  repository: asia.gcr.io/bank-demo-383910/bank_demo/cards
+  tag: latest
+
+containerPort: 9000
+
+service:
+  type: LoadBalancer
+  port: 9000
+  targetPort: 9000
+
+profile_enabled: true
+config_enabled: true
+zipkin_enabled: true
+eureka_enabled: true
