@@ -1,0 +1,21 @@
+
+deploymentName: accounts-service-deployment
+deploymentLabel: accounts-service
+
+replicaCount: 1
+
+image:
+  repository: asia.gcr.io/bank-demo-383910/bank_demo/accounts
+  tag: latest
+
+containerPort: 8080
+
+service:
+  type: LoadBalancer
+  port: 8080
+  targetPort: 8080
+
+profile_enabled: true
+config_enabled: true
+zipkin_enabled: true
+eureka_enabled: true
