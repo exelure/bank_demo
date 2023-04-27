@@ -1,10 +1,10 @@
-{{- if .Values.autoscaling.enabled }}
+{{- define "common.hpa" -}}
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Values.hpa.name }}
   labels:
-    {{- .Values.hpa.name }}
+    app: {{ .Values.hpa.name }}
 spec:
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
@@ -25,4 +25,4 @@ spec:
         name: memory
         targetAverageUtilization: {{ .Values.autoscaling.memoryUtilizationPercentage }}
     {{- end }}
-{{- end }}
+{{- end -}}
