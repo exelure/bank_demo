@@ -1,0 +1,21 @@
+
+deploymentName: discovery-service-deployment
+deploymentLabel: discovery-service
+
+replicaCount: 1
+
+image:
+  repository: asia.gcr.io/bank-demo-383910/bank_demo/discovery
+  tag: latest
+
+containerPort: 8070
+
+service:
+  type: LoadBalancer
+  port: 8070
+  targetPort: 8070
+
+profile_enabled: true
+config_enabled: true
+zipkin_enabled: true
+eureka_enabled: false
