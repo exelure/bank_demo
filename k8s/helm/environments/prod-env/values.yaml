@@ -3,5 +3,5 @@ global:
   configMapName: config-map-prod
   activeProfile: prod
   configServerURL: configserver:http://config-service:8855/
-  zipkinBaseURL: http://log-service:9411/api/v2/spans
+  zipkinBaseURL: http://logs-service:9411/api/v2/spans
   eurekaServerURL: http://discovery-service:8070/eureka/
