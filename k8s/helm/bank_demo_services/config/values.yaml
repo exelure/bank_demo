@@ -11,7 +11,7 @@ image:
 containerPort: 8855
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 8855
   targetPort: 8855
 
