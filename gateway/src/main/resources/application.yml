@@ -9,6 +9,11 @@ spring:
         locator:
           enabled: true # auto-detection and building routes via services names
           lowerCaseServiceId: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:10000/realms/master/protocol/openid-connect/certs # keycloak uri
 
 eureka:
   instance:
