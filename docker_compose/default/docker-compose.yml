@@ -4,6 +4,18 @@ networks:
   demobank-network:
 
 services:
+  iam:
+    image: quay.io/keycloak/keycloak:21.1.1
+    ports:
+      - "10000:8080"
+    networks:
+      - demobank-network
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      - start-dev
+
   prometheus:
     image: prom/prometheus:v2.43.0
     ports:
@@ -157,5 +169,6 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configuration:8855
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: http://iam:8080/realms/master/protocol/openid-connect/certs
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8070/eureka
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://logservice:9411/api/v2/spans
