@@ -1,5 +1,8 @@
 #!/bin/sh
 
+IMAGE_NAME=bank_demo/accounts
+IMAGE_TAG=1.0.0
+
 cd ..
 ./gradlew clean build
-docker build --no-cache -t bank_demo/accounts -f docker/Dockerfile .
+docker build --no-cache --tag $IMAGE_NAME:$IMAGE_TAG -f docker/Dockerfile .
