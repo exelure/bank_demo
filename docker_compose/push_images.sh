@@ -3,7 +3,7 @@
 
 CONFIG_IMG=bank_demo/configuration:1.0.0
 DISCOVERY_IMG=bank_demo/discovery:1.0.0
-GATEWAY_IMG=bank_demo/gateway:1.0.0
+GATEWAY_IMG=bank_demo/gateway:1.1.0
 ACCOUNTS_IMG=bank_demo/accounts:1.0.0
 CARDS_IMG=bank_demo/cards:1.0.0
 LOANS_IMG=bank_demo/loans:1.0.0
