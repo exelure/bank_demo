@@ -3,5 +3,6 @@ global:
   configMapName: config-map-dev
   activeProfile: dev
   configServerURL: configserver:http://config-service:8855/
+  iamServerURL: http://keycloak:80/realms/master/protocol/openid-connect/certs
   zipkinBaseURL: http://logs-service:9411/api/v2/spans
   eurekaServerURL: http://discovery-service:8070/eureka/

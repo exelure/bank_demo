@@ -24,6 +24,7 @@ autoscaling:
     maxReplicas: 2
     cpuUtilizationPercentage: 50
 
+iam_enabled: false
 profile_enabled: true
 config_enabled: true
 zipkin_enabled: true

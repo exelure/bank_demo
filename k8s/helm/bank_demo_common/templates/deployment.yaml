@@ -29,19 +29,26 @@ spec:
                 name: {{ .Values.global.configMapName }}
                 key: SPRING_PROFILES_ACTIVE
           {{- end }}
-          {{- if .Values.zipkin_enabled }}
-          - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Values.global.configMapName }}
-                key: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
-          {{- end }}
           {{- if .Values.config_enabled }}
           - name: SPRING_CONFIG_IMPORT
             valueFrom:
               configMapKeyRef:
                 name: {{ .Values.global.configMapName }}
                 key: SPRING_CONFIG_IMPORT
+          {{- end }}
+          {{- if .Values.iam_enabled }}
+          - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.global.configMapName }}
+                key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+          {{- end }}
+          {{- if .Values.zipkin_enabled }}
+          - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.global.configMapName }}
+                key: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
           {{- end }}
           {{- if .Values.eureka_enabled }}
           - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE

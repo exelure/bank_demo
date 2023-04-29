@@ -19,6 +19,7 @@ autoscaling:
   hpa:
     enabled: false
 
+iam_enabled: false
 profile_enabled: true
 config_enabled: false
 zipkin_enabled: true

@@ -4,8 +4,9 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.global.configMapName }}
 data:
-  MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: {{ .Values.global.zipkinBaseURL }}
   SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
   SPRING_CONFIG_IMPORT: {{ .Values.global.configServerURL }}
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: {{ .Values.global.iamServerURL }}
+  MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: {{ .Values.global.zipkinBaseURL }}
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: {{ .Values.global.eurekaServerURL }}
 {{- end -}}
