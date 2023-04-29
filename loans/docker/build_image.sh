@@ -1,4 +1,5 @@
+#!/bin/sh
 
 cd ..
 ./gradlew clean build
-docker build -t bank_demo/loans -f docker/Dockerfile .
+docker build --no-cache -t bank_demo/loans -f docker/Dockerfile .

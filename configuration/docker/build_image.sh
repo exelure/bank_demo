@@ -1,7 +1,9 @@
+#!/bin/sh
 
 cd ..
 ./gradlew clean build
 docker build \
+  --no-cache \
   -t bank_demo/configuration \
   -f docker/Dockerfile \
   --build-arg SSH_CONFIGS_KEY="$(cat ~/.ssh/bank_demo_configs)" \
