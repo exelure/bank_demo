@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: asia.gcr.io/bank-demo-383910/bank_demo/gateway
-  tag: latest
+  tag: 1.0.0
 
 containerPort: 6060
 
